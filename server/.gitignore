@@ -1,0 +1,17 @@
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# Directory for compiled output
+/dist
+
+# Dependency directories
+/node_modules
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
