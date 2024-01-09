@@ -22,4 +22,6 @@ router.delete("/:id", deedController.deleteDeed);
 
 router.post("/submit-observation", auth, deedController.submitForObservation);
 
+router.patch("/review/:id", auth, admin, deedController.reviewDeed);
+
 module.exports = router;

@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { registerSchema, loginSchema } = require("../validation/userValidation");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ["admin", "regular"], default: "regular" },
-  // Add any other fields you find necessary
+  passwordResetToken: String,
+  passwordResetExpires: Date,
 });
 
 // Hash password before saving
