@@ -5,7 +5,6 @@ import {
   SocialLinks,
   Info,
   LinkItem,
-  FooterRow,
 } from "./style";
 import { ReactComponent as FacebookIcon } from "../../assets/SVG/facebook-round-color-icon.svg";
 import { ReactComponent as TiktokIcon } from "../../assets/SVG/tiktok-color-icon.svg";

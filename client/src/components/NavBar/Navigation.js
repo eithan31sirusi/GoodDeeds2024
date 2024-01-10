@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { NavContainer, Logo, NavLinkContainer } from "./style";
+import { NavContainer, NavLinkContainer } from "./style";
 import FlexBox from "../FlexBox/FlexBox"; // Adjust the path as per your project structure
 
 const Navigation = () => {
