@@ -10,7 +10,11 @@ const deedSchema = new mongoose.Schema({
     default: "new",
   },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  // Add any other fields you find necessary
+  status: {
+    type: String,
+    enum: ["new", "under_review", "approved", "rejected"],
+    default: "new",
+  },
 });
 
 const Deed = mongoose.model("Deed", deedSchema);
