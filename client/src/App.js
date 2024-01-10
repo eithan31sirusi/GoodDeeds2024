@@ -1,12 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import styled from "styled-components";
 
 import Header from "./layout/Header/Header";
 import Footer from "./layout/Footer/Footer";
-import NavBar from "./components/NavBar/Navigation";
+
 import GlobalStyle from "./layout/GlobalStyle/GlobalStyle";
 import { StyledFlexBox } from "./components/FlexBox/style";
+import UserPanelPage from "./pages/UserPanelPage/UserPanelPage";
+
+import CardList from "./components/CardsList/CardsList";
 
 // App Container
 const AppContainer = styled.div`
@@ -22,11 +25,13 @@ const MainContent = styled(StyledFlexBox)`
 function App() {
   return (
     <AppContainer>
+      {" "}
+      <UserPanelPage />
       <GlobalStyle />
       <Header />
       <MainContent direction="column" justify="center" align="center">
         <h1>אפליקצית מעשים טובים</h1>
-        {/* Add other main content here */}
+        <CardList></CardList>
       </MainContent>
       <Footer />
     </AppContainer>
