@@ -26,7 +26,7 @@ const userController = {
 
       // Create token for the new user
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "12h",
       });
 
       // Send success response with token
@@ -60,7 +60,7 @@ const userController = {
 
       // Create token for the logged-in user
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "12h",
       });
 
       // Send success response with token
@@ -127,58 +127,39 @@ const userController = {
       res.status(500).send("Error removing user");
     }
   },
-  // In your userController.js
-  requestPasswordReset: async (req, res) => {
+
+  // Change Password
+
+  changePassword: async (req, res) => {
     try {
-      const user = await User.findOne({ email: req.body.email });
-      if (!user) {
-        return res.status(404).send("User not found");
+      const { oldPassword, newPassword } = req.body;
+      const user = req.user; // User from auth middleware
+
+      // Check if old password is correct
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).send("Old password is incorrect.");
       }
 
-      // Generate a token
-      const token = crypto.randomBytes(32).toString("hex");
-      user.passwordResetToken = crypto
-        .createHash("sha256")
-        .update(token)
-        .digest("hex");
-      user.passwordResetExpires = Date.now() + 3600000; // 1 hour
+      // Check if the new password is the same as the old password
+      const isNewPasswordSameAsOld = await bcrypt.compare(
+        newPassword,
+        user.password
+      );
+      if (isNewPasswordSameAsOld) {
+        return res
+          .status(400)
+          .send("New password must be different from the current password.");
+      }
+
+      // Directly assign the new password, let the pre-save middleware handle hashing
+      user.password = newPassword;
 
       await user.save();
 
-      // Send the token to the user's email
-      // sendEmail(user.email, token);
-
-      res.status(200).send("Password reset token sent to email");
+      res.status(200).send("Password successfully updated.");
     } catch (error) {
-      res.status(500).send("Error in requesting password reset");
-    }
-  },
-
-  // In your userController.js
-  resetPassword: async (req, res) => {
-    try {
-      const hashedToken = crypto
-        .createHash("sha256")
-        .update(req.params.token)
-        .digest("hex");
-
-      const user = await User.findOne({
-        passwordResetToken: hashedToken,
-        passwordResetExpires: { $gt: Date.now() },
-      });
-
-      if (!user) {
-        return res.status(400).send("Token is invalid or has expired");
-      }
-
-      user.password = await bcrypt.hash(req.body.password, 8);
-      user.passwordResetToken = undefined;
-      user.passwordResetExpires = undefined;
-      await user.save();
-
-      res.status(200).send("Password has been reset");
-    } catch (error) {
-      res.status(500).send("Error resetting password");
+      res.status(500).send("Error updating password.");
     }
   },
 };
