@@ -18,4 +18,7 @@ router.patch("/profile", auth, userController.updateUserProfile);
 //  Deleting User Profile
 router.delete("/:userId", auth, admin, userController.removeUser);
 
+// Changing Password
+router.post("/change-password", auth, userController.changePassword);
+
 module.exports = router;
