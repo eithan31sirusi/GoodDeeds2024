@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledButton } from "../StyledButton/style";
+import { StyledButton } from "../CustomButton/style";
 import {
   CardContainer,
   Title,
