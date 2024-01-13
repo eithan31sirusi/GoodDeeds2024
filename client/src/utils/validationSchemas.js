@@ -16,13 +16,13 @@ const registerSchema = yup.object().shape({
     .required("Password is required"),
 });
 
-- const updateUserProfileSchema = yup.object().shape({
+const updateUserProfileSchema = yup.object().shape({
   username: yup.string(), // Assuming username can be updated
   email: yup.string().email("Invalid email"), // Email update is optional
   // Include other updatable fields
 });
 
- const changePasswordSchema = yup.object().shape({
+const changePasswordSchema = yup.object().shape({
   oldPassword: yup.string().required("Old password is required"),
   newPassword: yup
     .string()
@@ -30,12 +30,12 @@ const registerSchema = yup.object().shape({
     .required("New password is required"),
 });
 
- const createDeedSchema = yup.object().shape({
+const createDeedSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
 });
 
- const updateDeedSchema = yup.object().shape({
+const updateDeedSchema = yup.object().shape({
   title: yup.string(), // Title is optional in updates
   description: yup.string(),
 });
@@ -44,6 +44,9 @@ const validationSchema = {
   updateUserProfileSchema,
   registerSchema,
   loginSchema,
+  changePasswordSchema,
+  createDeedSchema,
+  updateDeedSchema,
 };
 
 export default validationSchema;
