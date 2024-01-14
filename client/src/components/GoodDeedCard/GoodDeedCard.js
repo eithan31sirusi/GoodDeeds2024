@@ -18,8 +18,8 @@ const GoodDeedCard = ({
 }) => {
   return (
     <CardContainer>
-      <Title>{title}asdasd</Title>
-      <Description>{description}asdasd</Description>
+      <Title>{title}</Title>
+      <Description>{description}</Description>
       {isPersonal && status && <Status>Status: {status}</Status>}
       {isPersonal && creationDate && (
         <CreationDate>

@@ -53,12 +53,10 @@ const userDeedsController = {
       user.personalDeeds.push(newDeed._id);
       await user.save();
 
-      res
-        .status(201)
-        .send({
-          message: "Personal deed created and added to your list",
-          deed: newDeed,
-        });
+      res.status(201).send({
+        message: "Personal deed created and added to your list",
+        deed: newDeed,
+      });
     } catch (error) {
       res.status(500).send("Error creating personal deed: " + error.message);
     }
@@ -86,6 +84,10 @@ const userDeedsController = {
       const user = await User.findById(userId);
       if (!user || !user.personalDeeds.includes(deedId)) {
         return res.status(404).send("Deed not found in personal list");
+      }
+      // Check if the deed is personal and belongs to the user
+      if (deed.isGlobal || deed.createdBy.toString() !== userId.toString()) {
+        return res.status(403).send("Unauthorized to update this deed");
       }
 
       // Update logic for the deed, depending on what you allow to update
