@@ -12,7 +12,7 @@ const userController = {
       }
 
       // Extract info from request body
-      const { username, email, password, role } = req.body;
+      const { username, email, password, role, personalDeeds } = req.body;
 
       // Check if user already exists
       const userExists = await User.findOne({ email });
@@ -21,7 +21,7 @@ const userController = {
       }
 
       // Create a new user
-      const user = new User({ username, email, password, role });
+      const user = new User({ username, email, password, role, personalDeeds });
       await user.save();
 
       // Create token for the new user

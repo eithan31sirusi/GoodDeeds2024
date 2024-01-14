@@ -6,7 +6,7 @@ const { auth, admin } = require("../middleware/auth");
 // Create a new deed
 router.post("/global", auth, admin, deedController.createGlobalDeed);
 
-router.post("/personal", auth, deedController.createPersonalDeed);
+router.post("/:id/personal", auth, deedController.createPersonalDeed);
 
 // Get all deeds
 router.get("/", deedController.getAllDeeds);
@@ -23,5 +23,6 @@ router.delete("/:id", deedController.deleteDeed);
 router.post("/submit-observation", auth, deedController.submitForObservation);
 
 router.patch("/review/:id", auth, admin, deedController.reviewDeed);
+
 
 module.exports = router;
