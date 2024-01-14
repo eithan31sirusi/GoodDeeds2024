@@ -9,12 +9,14 @@ const app = express();
 
 const userRoutes = require("./routes/userRoutes");
 const deedRoutes = require("./routes/deedRoutes");
+const userDeedsRoutes = require("./routes/userDeedsRoutes");
 
 // Use middleware
 app.use(cors());
 app.use(express.json()); // for parsing application/json
 app.use("/api/users", userRoutes);
 app.use("/api/deeds", deedRoutes);
+app.use("/api/user-deeds", userDeedsRoutes);
 
 // Connect to MongoDB
 mongoose
