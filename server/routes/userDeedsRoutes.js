@@ -9,6 +9,8 @@ router.post(
   auth,
   userDeedsController.addDeedToPersonalList
 );
+
+// Creates and add user custom deed
 router.post(
   "/:userId/create-deed",
   auth,

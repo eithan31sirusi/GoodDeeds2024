@@ -4,13 +4,16 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { LoaderProvider } from "./context/LoaderContext";
+import { DeedsProvider } from "./context/DeedsContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <LoaderProvider>
-          <App />
+          <DeedsProvider>
+            <App />
+          </DeedsProvider>
         </LoaderProvider>
       </AuthProvider>
     </BrowserRouter>

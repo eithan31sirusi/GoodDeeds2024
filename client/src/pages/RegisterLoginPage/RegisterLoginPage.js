@@ -6,8 +6,6 @@ import { AuthContext } from "../../context/AuthContext";
 import { LoaderContext } from "../../context/LoaderContext";
 import axios from "axios";
 
-import HeartLoader from "../../assets/animation/HeartLoader";
-
 import {
   LoginRegisterContainer,
   FormTitle,

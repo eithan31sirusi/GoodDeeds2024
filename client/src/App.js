@@ -34,9 +34,9 @@ function App() {
       <Header />
       <MainContent direction="column" justify="center" align="center">
         <h1>אפליקצית מעשים טובים</h1>
-
-        <RegisterLoginPage />
-        <CardList />
+        <UserPanelPage /> <RegisterLoginPage />
+        {/*
+        <CardList /> */}
       </MainContent>
       <Footer />
     </AppContainer>
