@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext"; // Adjust the path as p
 import { useContext } from "react";
 
 const Navigation = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, isLoggedIn } = useContext(AuthContext);
 
   const handleLogout = () => {
     logout(); // Clear the user state and localStorage
@@ -16,7 +16,7 @@ const Navigation = () => {
       <FlexBox justify="space-between" align="center">
         <NavLinkContainer>
           <Link to="/">Home</Link>
-          {user ? (
+          {isLoggedIn ? (
             <Link onClick={handleLogout}>Logout</Link>
           ) : (
             <Link to="/login">Register/Login</Link>

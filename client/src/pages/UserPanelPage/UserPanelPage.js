@@ -17,7 +17,7 @@ const UserPanelPage = () => {
   useContext(AuthContext);
 
   const { setLoading } = useContext(LoaderContext);
-  const { user } = useContext(AuthContext);
+  const { user, isLoggedIn } = useContext(AuthContext);
   const [newDeed, setNewDeed] = useState({ title: "", description: "" });
   const navigate = useNavigate();
 
@@ -41,26 +41,34 @@ const UserPanelPage = () => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <Field
-            name="title"
-            type="text"
-            placeholder="Title"
-            component={CustomInput}
-          />
-          <Field
-            name="description"
-            type="text"
-            placeholder="Description"
-            component={CustomInput}
-          />
-          <CustomButton type="submit">Create Deed</CustomButton>
+          {isLoggedIn && (
+            <>
+              <Field
+                name="title"
+                type="text"
+                placeholder="Title"
+                component={CustomInput}
+              />
+              <Field
+                name="description"
+                type="text"
+                placeholder="Description"
+                component={CustomInput}
+              />
+              <CustomButton type="submit">Create Deed</CustomButton>
+            </>
+          )}
         </Form>
       </Formik>
       <h2>Global Deeds</h2>
-      <CardList items={globalDeeds} layout="grid" />
-
-      <h2>Your Personal Deeds</h2>
-      <CardList items={personalDeeds} layout="list" />
+   <CardList items={globalDeeds} layout="grid" />
+      {isLoggedIn && (
+        <>
+          {" "}
+          <h2>Your Personal Deeds</h2>
+          <CardList items={personalDeeds} layout="list" />
+        </>
+      )}
     </div>
   );
 };
