@@ -10,7 +10,6 @@ import { StyledFlexBox } from "./components/FlexBox/style";
 import UserPanelPage from "./pages/UserPanelPage/UserPanelPage";
 import RegisterLoginPage from "./pages/RegisterLoginPage/RegisterLoginPage";
 
-import CardList from "./components/CardsList/CardsList";
 import HeartLoader from "./assets/animation/HeartLoader";
 import { LoaderContext } from "./context/LoaderContext";
 
@@ -33,10 +32,7 @@ function App() {
       {loading && <HeartLoader />}
       <Header />
       <MainContent direction="column" justify="center" align="center">
-        <h1>אפליקצית מעשים טובים</h1>
         <UserPanelPage /> <RegisterLoginPage />
-        {/*
-        <CardList /> */}
       </MainContent>
       <Footer />
     </AppContainer>

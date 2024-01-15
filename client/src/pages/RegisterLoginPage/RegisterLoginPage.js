@@ -24,26 +24,33 @@ const RegisterLogin = () => {
   const handleAuth = async (values, endpoint) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/${endpoint}`,
-        values
-      );
-      const { token, user } = response.data;
-      localStorage.setItem("token", token);
-      setTimeout(() => {
-        if (endpoint === "users/login") {
-          login({ user, token }); // Update user state on login
-          navigate("/dashboard");
-        } else if (endpoint === "users/register") {
-          login({ user, token }); // Update user state on login
-          // Registration successful
-          alert("Registration successful. Please log in."); // Or use a more sophisticated method to show the message
-          setIsLogin(true); // Switch to login form
-          navigate("/dashboard");
-        }
-      }, 3000);
+      if (endpoint === "users/login") {
+        await login(values); // Call login from AuthContext
+        navigate("/dashboard");
+      } else if (endpoint === "users/register") {
+        const response = await axios.post(
+          `http://localhost:5000/api/${endpoint}`,
+          values
+        );
+        const { token, user } = response.data;
+        await login({ user, token }); // Call login from AuthContext
+        setIsLogin(true); // Switch to login form
+        navigate("/dashboard");
+      }
     } catch (error) {
-      console.error("Authentication failed:", error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("Error data:", error.response.data);
+        console.error("Error status:", error.response.status);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("Error request:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Error:", error.message);
+      }
+      console.error("Error config:", error.config);
     }
     setLoading(false);
   };
