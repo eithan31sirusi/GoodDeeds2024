@@ -8,7 +8,7 @@ export const FooterContainer = styled.footer`
   justify-content: space-around;
   padding: 20px;
   flex-wrap: wrap;
-  position: absolute;
+  position: sticky;
   left: 0;
   right: 0;
   bottom: 0;
