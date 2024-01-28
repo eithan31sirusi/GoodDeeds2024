@@ -14,6 +14,7 @@ export const DeedsProvider = ({ children }) => {
   useEffect(() => {
     //if (user) {}
     // Fetch global deeds
+
     axios
       .get("http://localhost:5000/api/deeds")
       .then((res) => setGlobalDeeds(res.data))
@@ -21,9 +22,10 @@ export const DeedsProvider = ({ children }) => {
 
     // Fetch personal deeds if user is defined
     if (user && user._id) {
+      const token = localStorage.getItem("token");
       axios
-        .get(`http://localhost:5000/api/user/${user._id}/personal-list`, {
-          headers: { Authorization: `Bearer ${user.token}` },
+        .get(`http://localhost:5000/api/user-deeds/${user._id}/personal-list`, {
+          headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setPersonalDeeds(res.data))
         .catch((error) =>
